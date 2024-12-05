@@ -1,0 +1,54 @@
+.search-bar {
+    width: 100000px;
+    /* Adjust this value to control the length */
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.app-header .form-control {
+    height: 50px;
+    width: 100px;
+    /* Adjust height if needed */
+    font-size: 16px;
+    /* Adjust font size for better appearance */
+}
+
+.btn {
+    height: 50px;
+    /* Match button height with input */
+}
+
+/* Search Input Styling */
+ .mb-3 input[type="input"] {
+    border: 2px solid #1d70b9;
+    border-radius: 10px;
+    padding: 10px;
+    transition: box-shadow 0.3s ease;
+    animation: slideInUp 1s ease-out;
+}
+
+.mb-3 input[type="input"]:focus {
+    box-shadow: 0 0 50px rgba(141, 29, 185, 0.5);
+}
+
+/* Search Button Styling */
+.mb-3 button {
+    background: #53aed5;
+    border: none;
+    color: rgb(255, 242, 242);
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 10px 20px;
+    transition: transform 0.3s ease, box-shadow 0.2s ease;
+    animation: pulse 1.5s infinite;
+}
+
+.mb-3 button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(107, 29, 185, 0.3);
+}
+
+.mb-3 button:active {
+    transform: scale(0.98);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+} 
