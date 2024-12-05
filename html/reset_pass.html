@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reset Password</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: seashell;
+      }
+      .reset-container {
+        padding: 40px;
+        border-radius: 8px;
+        background-color: whitesmoke;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 400px; /* Adjust width as needed */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="reset-container">
+      <h2 class="text-center">Reset password</h2>
+      <p class="text-center">Enter a new password</p>
+      <form action="" method="POST" id="resetForm">
+        <div class="form-group">
+          <label for="newPassword">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="newPassword"
+            name="newPassword"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">Confirm password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="confirm-password"
+            name="cnfPass"
+            required
+          />
+          <label
+            ><input type="checkbox" id="showPasswordCheckbox" /> Show
+            Password</label
+          >
+        </div>
+        <button
+          type="submit"
+          class="btn btn-dark btn-block"
+          onclick="checkStrings()"
+        >
+          Reset password
+        </button>
+      </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      // Set form action to include token dynamically
+      const token = window.location.pathname.split("/").pop(); // Extract token from URL
+      document.getElementById("resetForm").action = `/reset-password/${token}`;
+    </script>
+    <script>
+      function checkStrings() {
+        const str1 = document.getElementById("newPassword").value;
+        const str2 = document.getElementById("confirm-password").value;
+
+        if (str1 !== str2) {
+          event.preventDefault(); // Prevent form submission
+          alert("Passwords do not match!!");
+        }
+      }
+    </script>
+    <script>
+      // Function to toggle password visibility for both password and confirm password
+      document
+        .getElementById("showPasswordCheckbox")
+        .addEventListener("change", function () {
+          const passwordField = document.getElementById("newPassword");
+          const cnfpasswordField = document.getElementById("confirm-password");
+
+          // Toggle visibility for both fields based on the checkbox
+          if (this.checked) {
+            passwordField.type = "text"; // Show password
+            cnfpasswordField.type = "text"; // Show confirm password
+          } else {
+            passwordField.type = "password"; // Hide password
+            cnfpasswordField.type = "password"; // Hide confirm password
+          }
+        });
+    </script>
+  </body>
+</html>

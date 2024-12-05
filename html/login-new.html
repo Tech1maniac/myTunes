@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to myTunes</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/style-login.css" />
+  </head>
+  <body>
+    <h2>Welcome to myTunes!</h2>
+    <div class="container" id="container">
+      <!-- Sign Up Form -->
+      <div class="form-container sign-up-container">
+        <form action="/signup" method="post">
+          <h1>Create Account</h1>
+          <div class="input_box">
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Name*"
+              required
+            />
+          </div>
+          <div class="input_box">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Email Id*"
+              autocomplete="your-email@email.com"
+              required
+            />
+          </div>
+          <div class="input_box pass-field">
+            <input
+              type="password"
+              id="npassword"
+              name="npassword"
+              placeholder="Password*"
+              autocomplete="current-password"
+              required
+            />
+            <!-- <i class="fa-solid fa-eye"></i> -->
+          </div>
+          <ul class="requirement-list">
+            <li>At least 8 characters</li>
+          </ul>
+          <div class="input_box">
+            <input
+              type="password"
+              name="cnf_pass"
+              id="cnf_pass"
+              placeholder="Confirm Password*"
+              autocomplete="current-password"
+              required
+            />
+          </div>
+          <div class="remember-forget">
+            <label for="showPasswordCheckbox0" class="show-password-label">
+              <input type="checkbox" id="showPasswordCheckbox0" />
+              Show Password
+            </label>
+          </div>
+          <button type="submit" class="btn" onclick="checkStrings()">
+            Sign Up
+          </button>
+        </form>
+      </div>
+      <!-- --------------------------------------------------------------------------------------------------------------------- -->
+      <!-- Login Form -->
+      <div class="form-container sign-in-container">
+        <form action="/login" method="post">
+          <h1>Log In</h1>
+          <div class="input_box">
+            <input
+              type="email"
+              id="login_email"
+              name="email"
+              placeholder="Email*"
+              autocomplete="your-email@email.com"
+              required
+            />
+          </div>
+          <div class="input_box">
+            <input
+              type="password"
+              id="login_password"
+              name="password"
+              placeholder="Password*"
+              autocomplete="current-password"
+              required
+            />
+          </div>
+          <div class="remember-forget">
+            <label for="showLoginPassword" class="show-password-label">
+              <input type="checkbox" id="showLoginPassword" />
+              Show Password
+            </label>
+          </div>
+          <a href="/forgot-password" id="forgot-link">Forgot your password?</a>
+          <button type="submit">Log In</button>
+        </form>
+      </div>
+
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <h1>Welcome Back!</h1>
+            <p>
+              To keep connected with us please login with your personal info
+            </p>
+            <button class="ghost" id="signIn">Log In</button>
+          </div>
+          <div class="overlay-panel overlay-right">
+            <h1>Hello, Friend!</h1>
+            <p>Enter your personal details and start your journey with us</p>
+            <button class="ghost" id="signUp">Sign Up</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Toggle between sign-up and login forms
+      const signUpButton = document.getElementById("signUp");
+      const signInButton = document.getElementById("signIn");
+      const container = document.getElementById("container");
+
+      signUpButton.addEventListener("click", () => {
+        container.classList.add("right-panel-active");
+      });
+
+      signInButton.addEventListener("click", () => {
+        container.classList.remove("right-panel-active");
+      });
+
+      // Password validation for signup form
+      const passwordInput = document.getElementById("npassword");
+      const cnfpasswordInput = document.getElementById("cnf_pass");
+      const requirementList = document.querySelectorAll(".requirement-list li");
+
+      const requirements = [
+        { regex: /.{8,}/, index: 0 }, // Minimum 8 characters
+      ];
+
+      passwordInput.addEventListener("keyup", (e) => {
+        requirements.forEach((item) => {
+          const isValid = item.regex.test(e.target.value);
+          const requirementItem = requirementList[item.index];
+          if (isValid) {
+            requirementItem.classList.add("valid");
+            requirementItem.firstElementChild.className = "fa-solid fa-check";
+          } else {
+            requirementItem.classList.remove("valid");
+            requirementItem.firstElementChild.className = "fa-solid fa-circle";
+          }
+        });
+      });
+
+      // Toggle password visibility for signup form
+      document
+        .getElementById("showPasswordCheckbox0")
+        .addEventListener("change", () => {
+          const isChecked = document.getElementById(
+            "showPasswordCheckbox0"
+          ).checked;
+          passwordInput.type = isChecked ? "text" : "password";
+          cnfpasswordInput.type = isChecked ? "text" : "password";
+        });
+
+      // Confirm password validation for signup
+      function checkStrings(event) {
+        const password = document.getElementById("npassword").value;
+        const confirmPassword = document.getElementById("cnf_pass").value;
+
+        // Check if passwords match
+        if (password.trim() !== confirmPassword.trim()) {
+          event.preventDefault(); // Prevent form submission
+          alert("Passwords do not match!");
+          return false; // Stop the form submission
+        }
+
+        // Check password length (at least 8 characters)
+        if (password.length <= 7) {
+          event.preventDefault(); // Prevent form submission
+          alert("Password must be at least 8 characters long!");
+          return false; // Stop the form submission
+        }
+      }
+
+      // Add event listener to form submission
+      const signUpForm = document.querySelector(".sign-up-container form");
+      signUpForm.addEventListener("submit", checkStrings);
+
+      // Toggle password visibility for login form
+      const loginPasswordInput = document.getElementById("login_password");
+      const showLoginPasswordCheckbox =
+        document.getElementById("showLoginPassword");
+
+      showLoginPasswordCheckbox.addEventListener("change", () => {
+        loginPasswordInput.type = showLoginPasswordCheckbox.checked
+          ? "text"
+          : "password";
+      });
+    </script>
+  </body>
+</html>

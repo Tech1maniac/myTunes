@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <link rel="stylesheet" href="/css/userprofile.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>User Profile</h1>
+      <div class="settings-panel">
+        <div class="sidebar">
+          <div class="profile">
+            <img id="profile-photo" src="/photos/logo.jpg" alt="Profile Photo" />
+            <h2 id="user-name"></h2>
+          </div>
+          <ul class="menu">
+            <li><a href="/uploads" class="my-trips">Edit Profile Photo</a></li>
+            <li><a href="/forgot-password" class="my-trips">Change Password</a></li>
+          </ul>
+        </div>
+        <div class="form-section">
+          <h2>Account details</h2>
+          <form id="update-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="first-name">Name</label>
+                <input type="text" id="first-name" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" />
+              </div>
+            </div>
+            <div class="form-group full-width">
+              <label for="bio">Bio</label>
+              <textarea id="bio"">Hey listeners....Welcome to myTunes!!</textarea>
+            </div>
+            <div class="button-row">
+              <button type="submit" class="btn-update">Update</button>
+              <button type="button" class="btn-cancel">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript to Fetch User Data -->
+    <!-- <script>
+      async function fetchUserData() {
+        try {
+          const response = await fetch("/api/user");
+          if (!response.ok) {
+            throw new Error("Failed to fetch user data");
+          }
+
+          const user = await response.json();
+
+          // Populate the page with user data
+          document.getElementById("user-name").textContent = user.name;
+          document.getElementById("first-name").value = user.name;
+          document.getElementById("email").value = user.email;
+          document.getElementById("bio").value = user.bio;
+          document.getElementById("profile-photo").src = user.profilePhoto;
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+          alert("Failed to load profile data. Please try again.");
+        }
+      }
+
+      // Call the function on page load
+      window.onload = fetchUserData;
+
+      // Handle form submission
+      document.getElementById("update-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById("first-name").value;
+        const email = document.getElementById("email").value;
+        const bio = document.getElementById("bio").value;
+
+        try {
+          const response = await fetch("/api/user/update", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name, email, bio }),
+          });
+
+          if (!response.ok) {
+            throw new Error("Failed to update profile");
+          }
+
+          alert("Profile updated successfully!");
+        } catch (error) {
+          console.error("Error updating profile:", error);
+          alert("Failed to update profile. Please try again.");
+        }
+      });
+    </script> -->
+    <script src="/js/scriptprofile.js"></script>
+  </body>
+</html>
